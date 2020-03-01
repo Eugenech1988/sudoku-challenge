@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux'
+import 'normalize.css'
+import './styles/index.scss'
+import Grid from './components/Grid'
+import { setGridValuesArray } from './redux/actions/gridActions'
+import { createGridArray, NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from './utils'
 
-function App() {
+const App = () => {
+  // function that passing arguments for array dimensions
+  const gridArray = createGridArray(NUMBER_OF_COLUMNS, NUMBER_OF_ROWS)
+  useEffect(() => {
+    this.props.setGridValuesArray(gridArray)
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className='app'>
+        <div className='app-container'>
+          <Grid />
+        </div>
+      </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setGridValuesArray: (payload) => dispatch(setGridValuesArray(payload))
+})
+
+export default connect(null, mapDispatchToProps)(App)
