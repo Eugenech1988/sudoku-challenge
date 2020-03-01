@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import GridCell from '../GridCell'
 
 const Grid = (props) => {
   // functions that returns our jsx for our grid using dimensions for render it
+  const gridValues = useSelector(state => state.grid.gridValues)
   const renderGrid = (array) => (
     array.map(
       (arr, i) => {
@@ -23,13 +24,9 @@ const Grid = (props) => {
   )
   return (
     <div className='grid-wrapper'>
-      {renderGrid()}
+      {gridValues && renderGrid(gridValues)}
     </div>
   )
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-export default connect(mapStateToProps)(Grid)
+export default Grid
